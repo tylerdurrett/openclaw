@@ -1,7 +1,7 @@
 services:
   - type: web
     name: tool47
-    regrion: virginia
+    region: virginia
     runtime: docker
     plan: starter
     healthCheckPath: /health
