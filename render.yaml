@@ -1,6 +1,7 @@
 services:
   - type: web
-    name: openclaw
+    name: tool47
+    regrion: virginia
     runtime: docker
     plan: starter
     healthCheckPath: /health
