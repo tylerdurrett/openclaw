@@ -16,6 +16,12 @@ services:
         value: /data/workspace
       - key: OPENCLAW_GATEWAY_TOKEN
         generateValue: true
+      - key: NPM_CONFIG_PREFIX
+        value: /data/.npm-global
+      - key: CLAUDE_CONFIG_DIR
+        value: /data/.claude-config
+      - key: PATH
+        value: /data/.npm-global/bin:/root/.bun/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     disk:
       name: openclaw-data
       mountPath: /data
