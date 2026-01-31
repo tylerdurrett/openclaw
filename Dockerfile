@@ -34,9 +34,8 @@ COPY scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Add Claude Code PATH for SSH sessions
-RUN echo 'export PATH="/data/.claude-code/bin:$PATH"' > /etc/profile.d/claude-path.sh && \
-    echo 'export CLAUDE_CONFIG_DIR="/data/.claude-config"' >> /etc/profile.d/claude-path.sh && \
-    echo 'export CLAUDE_INSTALL_DIR="/data/.claude-code"' >> /etc/profile.d/claude-path.sh
+RUN echo 'export PATH="/data/.local/bin:$PATH"' > /etc/profile.d/claude-path.sh && \
+    echo 'export CLAUDE_CONFIG_DIR="/data/.claude-config"' >> /etc/profile.d/claude-path.sh
 
 ENV NODE_ENV=production
 

@@ -1,27 +1,27 @@
 #!/bin/bash
-set -e
 
 echo "[entrypoint] Starting..."
 echo "[entrypoint] Current user: $(whoami) (uid=$(id -u))"
-echo "[entrypoint] /data permissions: $(ls -la /data 2>&1 | head -5)"
 
-# Create directories if needed (first deploy)
-echo "[entrypoint] Creating directories..."
-mkdir -p /data/.claude-code
+# Create persistent directories
+mkdir -p /data/.local/bin
 mkdir -p /data/.claude-config
 
-# Set Claude Code install location
-export CLAUDE_INSTALL_DIR=/data/.claude-code
-export PATH="/data/.claude-code/bin:$PATH"
+# Symlink ~/.local to persistent disk so installer writes there
+if [ ! -L "$HOME/.local" ]; then
+  rm -rf "$HOME/.local" 2>/dev/null || true
+  ln -sf /data/.local "$HOME/.local"
+  echo "[entrypoint] Symlinked ~/.local -> /data/.local"
+fi
 
-# Install/update Claude Code using official installer
-if [ ! -f /data/.claude-code/bin/claude ]; then
+export PATH="/data/.local/bin:$PATH"
+
+# Install Claude Code if not present
+if [ ! -f /data/.local/bin/claude ]; then
   echo "[entrypoint] Installing Claude Code..."
-  curl -fsSL https://claude.ai/install.sh | bash 2>&1 || {
-    echo "[entrypoint] Claude Code install failed, continuing anyway..."
-  }
+  curl -fsSL https://claude.ai/install.sh | bash || true
 else
-  echo "[entrypoint] Claude Code already installed, skipping..."
+  echo "[entrypoint] Claude Code already installed"
 fi
 
 echo "[entrypoint] Claude Code at: $(which claude 2>&1 || echo 'not found')"

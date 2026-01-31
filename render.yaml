@@ -16,12 +16,10 @@ services:
         value: /data/workspace
       - key: OPENCLAW_GATEWAY_TOKEN
         generateValue: true
-      - key: CLAUDE_INSTALL_DIR
-        value: /data/.claude-code
       - key: CLAUDE_CONFIG_DIR
         value: /data/.claude-config
       - key: PATH
-        value: /data/.claude-code/bin:/root/.bun/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+        value: /data/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     disk:
       name: openclaw-data
       mountPath: /data
