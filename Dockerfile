@@ -45,4 +45,4 @@ ENV NODE_ENV=production
 USER node
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/index.js", "gateway", "--allow-unconfigured", "--port", "8080", "--bind", "lan"]
