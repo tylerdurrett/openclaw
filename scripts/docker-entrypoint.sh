@@ -1,4 +1,7 @@
 #!/bin/bash
+# Disable strict modes that could cause script to exit on installer warnings
+set +e
+set +o pipefail
 
 echo "[entrypoint] Starting..."
 echo "[entrypoint] Current user: $(whoami) (uid=$(id -u))"
@@ -19,7 +22,8 @@ export PATH="/data/.local/bin:$PATH"
 # Install Claude Code if not present
 if [ ! -f /data/.local/bin/claude ]; then
   echo "[entrypoint] Installing Claude Code..."
-  curl -fsSL https://claude.ai/install.sh | bash || true
+  curl -fsSL https://claude.ai/install.sh | bash
+  echo "[entrypoint] Install completed (exit code ignored)"
 else
   echo "[entrypoint] Claude Code already installed"
 fi
